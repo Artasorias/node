@@ -76,6 +76,12 @@ services:
       - $HOME/data/base:/data
 ```
 
+### Network exposure and RPC security
+
+By default, Docker publishes the JSON-RPC, WebSocket, metrics, and pprof ports on the host loopback interface only. This prevents those administrative and application endpoints from being exposed directly to the public network. The P2P ports remain published for peer connectivity.
+
+If you intentionally need remote RPC access, do not simply bind these ports to `0.0.0.0`. Put an authenticated, encrypted reverse proxy or private VPN in front of the service, restrict access with a firewall, and expose only the endpoints you actually need. Metrics and pprof should remain private.
+
 ### Syncing
 
 Sync speed depends on your L1 node, as the majority of the chain is derived from data submitted to the L1. You can check your syncing status using the `optimism_syncStatus` RPC on the `op-node` container. Example:
